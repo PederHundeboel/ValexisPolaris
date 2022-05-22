@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 383269007737004996}
-  - component: {fileID: 383269007737004997}
   - component: {fileID: 383269007737004986}
+  - component: {fileID: 6996501662465573572}
   m_Layer: 0
   m_Name: Thruster
-  m_TagString: Untagged
+  m_TagString: Thruster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,23 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &383269007737004997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383269007737004999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 205bf8ceebca7214296fc0e9f8690f63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxThrust: 2300000
-  _minThrust: 1
-  _thrustPercent: 0.3
-  _isThruster: 1
-  _thrustDir: 0
 --- !u!54 &383269007737004986
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -66,6 +49,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6996501662465573572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383269007737004999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c81f24e05a5fb514c96472c2ccd06465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxThrust: 2300000
+  _minThrust: 1
+  _thrustPercent: 0.5
+  _isThruster: 0
+  _thrustDir: 7
 --- !u!1 &383269007983928879
 GameObject:
   m_ObjectHideFlags: 0

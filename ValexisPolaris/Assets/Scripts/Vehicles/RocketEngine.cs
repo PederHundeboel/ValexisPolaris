@@ -20,11 +20,9 @@ public class RocketEngine : MonoBehaviour
     private bool _on = false;
 
     [SerializeField]
-    private bool _isThruster = false;
-    [SerializeField]
     private ThrustDir _thrustDir = ThrustDir.NoDir;
 
-    private InputMaster _controls;
+    private ValexisInput _controls;
     private Rigidbody _rb;
     void Awake()
     {
@@ -32,29 +30,29 @@ public class RocketEngine : MonoBehaviour
         _tz = transform.localPosition.z;
         _yrot = transform.localRotation.y;
 
-        _controls = new InputMaster();
+        _controls = new ValexisInput();
         _controls.Rocket.Enable();
-        if (!_isThruster)
-        {
-            _controls.Rocket.Thrust.performed += _ => _on = true;
-            _controls.Rocket.Thrust.canceled += _ => _on = false;
-        }
-        else
-        {
-            _thrustDir = GetThrustDirFromTransform(transform);
-            if (_thrustDir == ThrustDir.PositiveRoll || _thrustDir == ThrustDir.NegativeRoll)
-            {
-                _controls.Rocket.Roll.performed += DoRoll;
-                _controls.Rocket.Roll.canceled += _ => _on = false;
-            }
-            else
-            {
-                _controls.Rocket.Pitch.performed += DoPitch;
-                _controls.Rocket.Pitch.canceled += _ => _on = false;
-            }
+        //if (!_isThruster)
+        //{
+        _controls.Rocket.Thrust.performed += _ => _on = true;
+        _controls.Rocket.Thrust.canceled += _ => _on = false;
+        //}
+        //else
+        //{
+        //    _thrustDir = GetThrustDirFromTransform(transform);
+        //    if (_thrustDir == ThrustDir.PositiveRoll || _thrustDir == ThrustDir.NegativeRoll)
+        //    {
+        //        _controls.Rocket.Roll.performed += DoRoll;
+        //        _controls.Rocket.Roll.canceled += _ => _on = false;
+        //    }
+        //    else
+        //    {
+        //        _controls.Rocket.Pitch.performed += DoPitch;
+        //        _controls.Rocket.Pitch.canceled += _ => _on = false;
+        //    }
 
 
-        }
+        //}
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -81,11 +79,6 @@ public class RocketEngine : MonoBehaviour
             //Debug.Log("Thrusters on!");
             _rb.AddForce(transform.forward * GetThrust(), ForceMode.Force);
         }
-    }
-
-    private void LateUpdate()
-    {
-        
     }
 
     public float GetThrust()
@@ -153,19 +146,10 @@ public class RocketEngine : MonoBehaviour
         var thrustDir = (Quaternion.Euler(t.parent.eulerAngles) * t.transform.forward);
         var yrot = t.localEulerAngles.x;
 
-        Debug.Log(gameObject.name + transform.localPosition + "\n tr local fwd = " + (Quaternion.Euler(t.parent.eulerAngles) * t.transform.forward));
+        Debug.Log(gameObject.name + transform.localPosition + "\n tr local fwd = " + (t.parent.parent.parent.localRotation * t.transform.forward));
 
         if (ThrustRollDir(tx, ty, tz, thrustDir) != ThrustDir.Fwd)
             return ThrustRollDir(tx, ty, tz, thrustDir);
-
-        //Positive roll
-        //if ((tx > 0 && thrustDir.y > 0) || (tx < 0 && thrustDir.y < 0))
-        //    return ThrustDir.PositiveRoll;
-        //Negative roll
-        //if ((tx > 0 && thrustDir.y < 0) || (tx < 0 && thrustDir.y > 0))
-        //    return ThrustDir.NegativeRoll;
-
-
 
         return ThrustDir.NoDir;
     }

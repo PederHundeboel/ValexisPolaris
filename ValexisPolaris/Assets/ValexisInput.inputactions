@@ -774,12 +774,30 @@
         },
         {
             "name": "Rocket",
-            "id": "158cb96d-5cef-4f17-b0e6-16f6959a1402",
+            "id": "b4528328-c0d4-48b6-985a-0b572216568e",
             "actions": [
                 {
                     "name": "Thrust",
                     "type": "Button",
-                    "id": "e05792a7-a41d-4b39-a56f-6b8c815fc3d5",
+                    "id": "cc9673e5-604c-47b6-a2ec-253103242586",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Roll",
+                    "type": "Button",
+                    "id": "814b59bf-e5c2-4576-9533-056d8017fee3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pitch",
+                    "type": "Button",
+                    "id": "b2573188-8f22-4f90-bb79-e56121975167",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -789,14 +807,80 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "d366fd7b-3ac8-455c-ad14-33b086c7f487",
-                    "path": "<Keyboard>/space",
+                    "id": "8f9ac430-946c-4966-8fe1-e6390f3c7ec3",
+                    "path": "<Keyboard>/numpad0",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Thrust",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "55f2bf4a-03be-4018-b8a5-026c7e0a8564",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "16dfb704-40dc-408d-a794-e459a65047bb",
+                    "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "eb9cb42e-7560-4f95-8be8-2e36177f6a0d",
+                    "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "dcf7b4ad-18e3-4f15-b1ef-d5de25694465",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pitch",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "6d0d9abb-6be9-46ec-b3fe-23ebbe76add7",
+                    "path": "<Keyboard>/numpad5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pitch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "f9cf5d14-dcdd-47c9-9054-dee89fd6968a",
+                    "path": "<Keyboard>/numpad8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pitch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
