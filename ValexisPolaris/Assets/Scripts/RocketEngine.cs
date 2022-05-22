@@ -41,9 +41,18 @@ public class RocketEngine : MonoBehaviour
         }
         else
         {
-            _controls.Rocket.Roll.performed += DoRoll;
-            _controls.Rocket.Roll.canceled += _ => _on = false;
             _thrustDir = GetThrustDirFromTransform(transform);
+            if (_thrustDir == ThrustDir.PositiveRoll || _thrustDir == ThrustDir.NegativeRoll)
+            {
+                _controls.Rocket.Roll.performed += DoRoll;
+                _controls.Rocket.Roll.canceled += _ => _on = false;
+            }
+            else
+            {
+                _controls.Rocket.Pitch.performed += DoPitch;
+                _controls.Rocket.Pitch.canceled += _ => _on = false;
+            }
+
 
         }
         _rb = GetComponent<Rigidbody>();
@@ -104,6 +113,26 @@ public class RocketEngine : MonoBehaviour
         }
     }
 
+    private void DoPitch(InputAction.CallbackContext c)
+    {
+        if (c.ReadValue<float>() == 1)
+        {
+            if (_thrustDir == ThrustDir.PositivePitch)
+            {
+                Debug.Log("Positive Pitch! from:" + transform.ToString());
+                _on = true;
+            }
+        }
+        else
+        {
+            if (_thrustDir == ThrustDir.NegativePitch)
+            {
+                Debug.Log("Negative Pitch! from: " + transform.ToString());
+                _on = true;
+            }
+        }
+    }
+
     enum ThrustDir
     {
         PositiveRoll,
@@ -112,45 +141,82 @@ public class RocketEngine : MonoBehaviour
         NegativeYaw,
         PositivePitch,
         NegativePitch,
+        Fwd,
         NoDir
     }
 
     private ThrustDir GetThrustDirFromTransform(Transform t)
     {
         var tx = t.localPosition.x;
-        var tz = t.localPosition.y;
+        var ty = t.localPosition.y;
+        var tz = t.localPosition.z;
+        var thrustDir = (Quaternion.Euler(t.parent.eulerAngles) * t.transform.forward);
         var yrot = t.localEulerAngles.x;
 
-        Debug.Log(transform.forward);
+        Debug.Log(gameObject.name + transform.localPosition + "\n tr local fwd = " + (Quaternion.Euler(t.parent.eulerAngles) * t.transform.forward));
+
+        if (ThrustRollDir(tx, ty, tz, thrustDir) != ThrustDir.Fwd)
+            return ThrustRollDir(tx, ty, tz, thrustDir);
 
         //Positive roll
-        //x+ z-
-        if ((tx >= 0 && tz <= 0) && (yrot >= 0 && _yrot <= 90))
-            return ThrustDir.PositiveRoll;
-        //x- z-
-        if ((tx <= 0 && tz <= 0) && (yrot > 90 && yrot <= 180))
-            return ThrustDir.PositiveRoll;
-        //x- z+
-        if ((tx <= 0 && tz >= 0) && (yrot > 180 && yrot <= 270))
-            return ThrustDir.PositiveRoll;
-        //x+ z+
-        if ((tx >= 0 && tz >= 0) && (yrot > 270 && yrot <= 359.999))
-            return ThrustDir.PositiveRoll;
-
+        //if ((tx > 0 && thrustDir.y > 0) || (tx < 0 && thrustDir.y < 0))
+        //    return ThrustDir.PositiveRoll;
         //Negative roll
-        //x+ z-
-        if ((tx >= 0 && tz <= 0) && (yrot > 180 && yrot <= 270))
-            return ThrustDir.NegativeRoll;
-        //x- z-
-        if ((tx <= 0 && tz <= 0) && (_yrot > 270 && yrot <= 359.999))
-            return ThrustDir.NegativeRoll;
-        //x- z+
-        if ((tx <= 0 && tz >= 0) && (yrot >= 0 && yrot <= 90))
-            return ThrustDir.NegativeRoll;
-        //x+ z+
-        if ((tx >= 0 && tz >= 0) && (yrot > 90 && yrot <= 180))
-            return ThrustDir.NegativeRoll;
+        //if ((tx > 0 && thrustDir.y < 0) || (tx < 0 && thrustDir.y > 0))
+        //    return ThrustDir.NegativeRoll;
+
+
 
         return ThrustDir.NoDir;
+    }
+
+    private ThrustDir ThrustRollDir(float tx, float ty, float tz, Vector3 thrustDir)
+    {
+        if (thrustDir.y == 0 && thrustDir.x == 0)
+            return ThrustDir.Fwd;
+
+        if (Mathf.Abs(thrustDir.y) + Mathf.Abs(thrustDir.x) > Mathf.Abs(thrustDir.z))
+        {
+            if ((tx >= 0 && ty >= 0))
+            {
+                if ((thrustDir.x <= 0 && thrustDir.y >= 0))
+                    return ThrustDir.PositiveRoll;
+                if ((thrustDir.x >= 0 && thrustDir.y <= 0))
+                    return ThrustDir.NegativeRoll;
+            }
+            if ((tx <= 0 && ty >= 0))
+            {
+                if ((thrustDir.x <= 0 && thrustDir.y <= 0))
+                    return ThrustDir.PositiveRoll;
+                if ((thrustDir.x >= 0 && thrustDir.y >= 0))
+                    return ThrustDir.NegativeRoll;
+            }
+            if ((tx <= 0 && ty <= 0))
+            {
+                if ((thrustDir.x >= 0 && thrustDir.y <= 0))
+                    return ThrustDir.PositiveRoll;
+                if ((thrustDir.x <= 0 && thrustDir.y >= 0))
+                    return ThrustDir.NegativeRoll;
+            }
+            if ((tx >= 0 && ty <= 0))
+            {
+                if ((thrustDir.x >= 0 && thrustDir.y >= 0))
+                    return ThrustDir.PositiveRoll;
+                if ((thrustDir.x <= 0 && thrustDir.y <= 0))
+                    return ThrustDir.NegativeRoll;
+            }
+        }
+
+        //Positive pitch (only picks up thrusters above COG atm)
+        if ((ty < 0 && tz > 0 && thrustDir.z > 0) || (ty > 0 && tz > 0 && thrustDir.z < 0))
+            return ThrustDir.PositivePitch;
+        //Negative pitch (only picks up thrusters above COG atm)
+        if ((ty < 0 && tz > 0 && thrustDir.z < 0) || (tx > 0 && tz > 0 && thrustDir.z > 0))
+            return ThrustDir.NegativePitch;
+
+        return ThrustDir.NoDir;
+
+        
+
     }
 }

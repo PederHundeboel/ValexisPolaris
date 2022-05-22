@@ -72,6 +72,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pitch"",
+                    ""type"": ""Button"",
+                    ""id"": ""f45afebf-a263-4ad9-89e4-2c18c5b7c193"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -118,6 +127,39 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""Roll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""76a69cad-b83d-476f-a33c-b8af748fa392"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pitch"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""243a26c2-dee1-47c8-9c6e-2cf66439263c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""960c9ea5-dd4b-4742-a9a8-5ad7b9ca73fb"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -148,6 +190,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Rocket = asset.FindActionMap("Rocket", throwIfNotFound: true);
         m_Rocket_Thrust = m_Rocket.FindAction("Thrust", throwIfNotFound: true);
         m_Rocket_Roll = m_Rocket.FindAction("Roll", throwIfNotFound: true);
+        m_Rocket_Pitch = m_Rocket.FindAction("Pitch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -242,12 +285,14 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private IRocketActions m_RocketActionsCallbackInterface;
     private readonly InputAction m_Rocket_Thrust;
     private readonly InputAction m_Rocket_Roll;
+    private readonly InputAction m_Rocket_Pitch;
     public struct RocketActions
     {
         private @InputMaster m_Wrapper;
         public RocketActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Thrust => m_Wrapper.m_Rocket_Thrust;
         public InputAction @Roll => m_Wrapper.m_Rocket_Roll;
+        public InputAction @Pitch => m_Wrapper.m_Rocket_Pitch;
         public InputActionMap Get() { return m_Wrapper.m_Rocket; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +308,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Roll.started -= m_Wrapper.m_RocketActionsCallbackInterface.OnRoll;
                 @Roll.performed -= m_Wrapper.m_RocketActionsCallbackInterface.OnRoll;
                 @Roll.canceled -= m_Wrapper.m_RocketActionsCallbackInterface.OnRoll;
+                @Pitch.started -= m_Wrapper.m_RocketActionsCallbackInterface.OnPitch;
+                @Pitch.performed -= m_Wrapper.m_RocketActionsCallbackInterface.OnPitch;
+                @Pitch.canceled -= m_Wrapper.m_RocketActionsCallbackInterface.OnPitch;
             }
             m_Wrapper.m_RocketActionsCallbackInterface = instance;
             if (instance != null)
@@ -273,6 +321,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Roll.started += instance.OnRoll;
                 @Roll.performed += instance.OnRoll;
                 @Roll.canceled += instance.OnRoll;
+                @Pitch.started += instance.OnPitch;
+                @Pitch.performed += instance.OnPitch;
+                @Pitch.canceled += instance.OnPitch;
             }
         }
     }
@@ -294,5 +345,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     {
         void OnThrust(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
+        void OnPitch(InputAction.CallbackContext context);
     }
 }
