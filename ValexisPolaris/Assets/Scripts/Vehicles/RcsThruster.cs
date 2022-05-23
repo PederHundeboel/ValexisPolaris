@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class RcsThruster : RocketEngine
 {
+    private Rigidbody _rb;
+    private bool _on;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        _rb = GetComponent<Rigidbody>();
         Debug.Log(gameObject.name + transform.localPosition + "\n tr local fwd = " + (Quaternion.Euler(transform.localEulerAngles) * transform.InverseTransformDirection(transform.forward)));
 
     }
@@ -15,5 +18,26 @@ public class RcsThruster : RocketEngine
     void Update()
     {
         
+    }
+
+    public void Thrust()
+    {
+        _rb.AddForce(transform.forward * GetThrust(), ForceMode.Force);
+    }
+
+
+
+    public float GetThrust()
+    {
+        return _thrustPercent * _maxThrust;
+    }
+
+    private void FixedUpdate()
+    {
+        if (_on)
+        {
+            //Debug.Log("Thrusters on!");
+            //_rb.AddForce(transform.forward * GetThrust(), ForceMode.Force);
+        }
     }
 }
