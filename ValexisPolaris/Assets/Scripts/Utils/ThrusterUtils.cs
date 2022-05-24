@@ -6,6 +6,9 @@ public class ThrusterUtils : MonoBehaviour
 {
     //The workings of this class might be slightly hard to understand fully without looking at the visualization found at: 
 
+    /// <summary>
+    /// <c>GetAxes</c> returns a list of the axes in which the thruster provides thrust.
+    /// </summary>
     static public List<ThrustAxis> GetAxes(Transform t)
     {
         var thr = new ThrusterTransform(t);
@@ -114,6 +117,7 @@ public class ThrusterUtils : MonoBehaviour
         public float xPos;
         public float yPos;
         public float zPos;
+        public string name;
         public Vector3 thrustDir;
         public ThrusterTransform(Transform t)
         {
@@ -121,25 +125,31 @@ public class ThrusterUtils : MonoBehaviour
             this.yPos = t.localPosition.y;
             this.zPos = t.localPosition.z;
             this.thrustDir = (Quaternion.Euler(t.localEulerAngles) * t.InverseTransformDirection(t.forward));
+            this.name = t.name;
         }
+
 
         public bool IsRoll()
         {
-            if (Mathf.Abs(this.thrustDir.y) + Mathf.Abs(this.thrustDir.x) > Mathf.Abs(this.thrustDir.z))
+            var v = new Vector2(this.thrustDir.x, this.thrustDir.y);
+            if (v.magnitude > Mathf.Abs(this.thrustDir.z))
                 return true;
             return false;
         }
 
         public bool IsPitch()
         {
-            if (Mathf.Abs(this.thrustDir.y) + Mathf.Abs(this.thrustDir.z) > Mathf.Abs(this.thrustDir.x))
+            var v = new Vector2(this.thrustDir.y, this.thrustDir.z);
+            if (v.magnitude > Mathf.Abs(this.thrustDir.x) && Mathf.Abs(this.thrustDir.y) >= 0.2)
                 return true;
             return false;
         }
 
         public bool IsYaw()
         {
-            if (Mathf.Abs(this.thrustDir.x) + Mathf.Abs(this.thrustDir.z) > Mathf.Abs(this.thrustDir.y))
+            var v = new Vector2(this.thrustDir.x, this.thrustDir.z);
+            Debug.Log(thrustDir + " has magnitude xz : " + v.magnitude);
+            if (v.magnitude > Mathf.Abs(this.thrustDir.y) && Mathf.Abs(this.thrustDir.x) >= 0.2)
                 return true;
             return false;
         }

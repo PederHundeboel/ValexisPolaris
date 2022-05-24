@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RcsThruster : RocketEngine
 {
-    private Rigidbody _rb;
-    private bool _on;
     // Start is called before the first frame update
     void Awake()
     {

@@ -35,3 +35,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+ValexisPolaris/Assets/Models/f_diffuse.png
+ValexisPolaris/Assets/Models/f_diffuse.png.meta
+ValexisPolaris/Assets/Models/f_normal.png
+ValexisPolaris/Assets/Models/f_roughness.png
+ValexisPolaris/Assets/Models/f_roughness.png.meta
+ValexisPolaris/Assets/Models/f_normal.png.meta
