@@ -810,7 +810,7 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Roll"",
                     ""type"": ""Button"",
-                    ""id"": ""814b59bf-e5c2-4576-9533-056d8017fee3"",
+                    ""id"": ""f7169377-b30b-47c2-8f38-efc42b2d0866"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -820,6 +820,15 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
                     ""name"": ""Pitch"",
                     ""type"": ""Button"",
                     ""id"": ""b2573188-8f22-4f90-bb79-e56121975167"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Yaw"",
+                    ""type"": ""Button"",
+                    ""id"": ""814b59bf-e5c2-4576-9533-056d8017fee3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -837,39 +846,6 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
                     ""action"": ""Thrust"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""55f2bf4a-03be-4018-b8a5-026c7e0a8564"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Roll"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""16dfb704-40dc-408d-a794-e459a65047bb"",
-                    ""path"": ""<Keyboard>/numpad4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Roll"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""eb9cb42e-7560-4f95-8be8-2e36177f6a0d"",
-                    ""path"": ""<Keyboard>/numpad6"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Roll"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""1D Axis"",
@@ -903,6 +879,100 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
                     ""action"": ""Pitch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""55f2bf4a-03be-4018-b8a5-026c7e0a8564"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""16dfb704-40dc-408d-a794-e459a65047bb"",
+                    ""path"": ""<Keyboard>/numpad4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""eb9cb42e-7560-4f95-8be8-2e36177f6a0d"",
+                    ""path"": ""<Keyboard>/numpad6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""d16a2809-82a9-40a8-8b0f-6fc1cd4cfad5"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""a6c04382-080b-4bc6-877a-5d217c050bdc"",
+                    ""path"": ""<Keyboard>/numpad7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""a595caa8-bcaf-46be-88bf-8391346f0a2f"",
+                    ""path"": ""<Keyboard>/numpad9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Rocket2"",
+            ""id"": ""2009b62b-d97f-484c-b832-6f818e710ecd"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""f400f809-86ae-4f57-b38e-f1598fc613fe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""de910240-4fc9-45c9-8e72-5096351a3ab9"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -992,6 +1062,10 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
         m_Rocket_Thrust = m_Rocket.FindAction("Thrust", throwIfNotFound: true);
         m_Rocket_Roll = m_Rocket.FindAction("Roll", throwIfNotFound: true);
         m_Rocket_Pitch = m_Rocket.FindAction("Pitch", throwIfNotFound: true);
+        m_Rocket_Yaw = m_Rocket.FindAction("Yaw", throwIfNotFound: true);
+        // Rocket2
+        m_Rocket2 = asset.FindActionMap("Rocket2", throwIfNotFound: true);
+        m_Rocket2_Newaction = m_Rocket2.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1208,6 +1282,7 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Rocket_Thrust;
     private readonly InputAction m_Rocket_Roll;
     private readonly InputAction m_Rocket_Pitch;
+    private readonly InputAction m_Rocket_Yaw;
     public struct RocketActions
     {
         private @ValexisInput m_Wrapper;
@@ -1215,6 +1290,7 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
         public InputAction @Thrust => m_Wrapper.m_Rocket_Thrust;
         public InputAction @Roll => m_Wrapper.m_Rocket_Roll;
         public InputAction @Pitch => m_Wrapper.m_Rocket_Pitch;
+        public InputAction @Yaw => m_Wrapper.m_Rocket_Yaw;
         public InputActionMap Get() { return m_Wrapper.m_Rocket; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1233,6 +1309,9 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
                 @Pitch.started -= m_Wrapper.m_RocketActionsCallbackInterface.OnPitch;
                 @Pitch.performed -= m_Wrapper.m_RocketActionsCallbackInterface.OnPitch;
                 @Pitch.canceled -= m_Wrapper.m_RocketActionsCallbackInterface.OnPitch;
+                @Yaw.started -= m_Wrapper.m_RocketActionsCallbackInterface.OnYaw;
+                @Yaw.performed -= m_Wrapper.m_RocketActionsCallbackInterface.OnYaw;
+                @Yaw.canceled -= m_Wrapper.m_RocketActionsCallbackInterface.OnYaw;
             }
             m_Wrapper.m_RocketActionsCallbackInterface = instance;
             if (instance != null)
@@ -1246,10 +1325,46 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
                 @Pitch.started += instance.OnPitch;
                 @Pitch.performed += instance.OnPitch;
                 @Pitch.canceled += instance.OnPitch;
+                @Yaw.started += instance.OnYaw;
+                @Yaw.performed += instance.OnYaw;
+                @Yaw.canceled += instance.OnYaw;
             }
         }
     }
     public RocketActions @Rocket => new RocketActions(this);
+
+    // Rocket2
+    private readonly InputActionMap m_Rocket2;
+    private IRocket2Actions m_Rocket2ActionsCallbackInterface;
+    private readonly InputAction m_Rocket2_Newaction;
+    public struct Rocket2Actions
+    {
+        private @ValexisInput m_Wrapper;
+        public Rocket2Actions(@ValexisInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_Rocket2_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_Rocket2; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(Rocket2Actions set) { return set.Get(); }
+        public void SetCallbacks(IRocket2Actions instance)
+        {
+            if (m_Wrapper.m_Rocket2ActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_Rocket2ActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_Rocket2ActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_Rocket2ActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_Rocket2ActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public Rocket2Actions @Rocket2 => new Rocket2Actions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1319,5 +1434,10 @@ public partial class @ValexisInput : IInputActionCollection2, IDisposable
         void OnThrust(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnPitch(InputAction.CallbackContext context);
+        void OnYaw(InputAction.CallbackContext context);
+    }
+    public interface IRocket2Actions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

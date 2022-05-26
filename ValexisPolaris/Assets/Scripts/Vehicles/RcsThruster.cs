@@ -8,7 +8,7 @@ public class RcsThruster : RocketEngine
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        Debug.Log(gameObject.name + transform.localPosition + "\n tr local fwd = " + (Quaternion.Euler(transform.localEulerAngles) * transform.InverseTransformDirection(transform.forward)));
+        //Debug.Log(gameObject.name + transform.localPosition + "\n tr local fwd = " + (Quaternion.Euler(transform.localEulerAngles) * transform.InverseTransformDirection(transform.forward)));
 
     }
 

@@ -788,7 +788,7 @@
                 {
                     "name": "Roll",
                     "type": "Button",
-                    "id": "814b59bf-e5c2-4576-9533-056d8017fee3",
+                    "id": "f7169377-b30b-47c2-8f38-efc42b2d0866",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -798,6 +798,15 @@
                     "name": "Pitch",
                     "type": "Button",
                     "id": "b2573188-8f22-4f90-bb79-e56121975167",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Yaw",
+                    "type": "Button",
+                    "id": "814b59bf-e5c2-4576-9533-056d8017fee3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -815,39 +824,6 @@
                     "action": "Thrust",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "55f2bf4a-03be-4018-b8a5-026c7e0a8564",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "16dfb704-40dc-408d-a794-e459a65047bb",
-                    "path": "<Keyboard>/numpad4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "eb9cb42e-7560-4f95-8be8-2e36177f6a0d",
-                    "path": "<Keyboard>/numpad6",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "1D Axis",
@@ -881,6 +857,100 @@
                     "action": "Pitch",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "55f2bf4a-03be-4018-b8a5-026c7e0a8564",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Yaw",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "16dfb704-40dc-408d-a794-e459a65047bb",
+                    "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "eb9cb42e-7560-4f95-8be8-2e36177f6a0d",
+                    "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "d16a2809-82a9-40a8-8b0f-6fc1cd4cfad5",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "a6c04382-080b-4bc6-877a-5d217c050bdc",
+                    "path": "<Keyboard>/numpad7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "a595caa8-bcaf-46be-88bf-8391346f0a2f",
+                    "path": "<Keyboard>/numpad9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Rocket2",
+            "id": "2009b62b-d97f-484c-b832-6f818e710ecd",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "f400f809-86ae-4f57-b38e-f1598fc613fe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "de910240-4fc9-45c9-8e72-5096351a3ab9",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

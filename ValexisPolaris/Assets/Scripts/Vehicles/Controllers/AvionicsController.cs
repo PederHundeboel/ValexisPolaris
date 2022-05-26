@@ -45,7 +45,7 @@ public class AvionicsController : MonoBehaviour
     {
         foreach (Transform thr in _thrusterRoot.transform)
         {
-            var axes = ThrusterUtils.GetAxes(thr);
+            var axes = ThrusterUtils.GetAxes(thr, _thrusterRoot.transform);
             foreach (var axis in axes)
             {
                 switch (axis)
