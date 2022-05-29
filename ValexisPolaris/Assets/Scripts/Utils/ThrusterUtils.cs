@@ -4,117 +4,68 @@ using UnityEngine;
 
 public class ThrusterUtils : MonoBehaviour
 {
+    //Debugging shit delete later :)
+    static int drawings = 0;
+    static int drawn = 0;
+
     //The workings of this class might be slightly hard to understand fully without looking at the visualization found at: 
 
     /// <summary>
     /// <c>GetAxes</c> returns a list of the axes in which the thruster provides thrust.
     /// </summary>
-    static public List<ThrustAxis> GetAxes(Transform t, Transform centreOfGravity)
+    static public List<ThrustAxis> GetAxes(Transform t, Transform centreOfGravity, Transform outerParent)
     {
-        var thr = new ThrusterTransform(t, centreOfGravity);
+        var thr = new ThrusterTransform(t, centreOfGravity, outerParent);
         var AxesList = new List<ThrustAxis>();
 
-        RollAxis(thr);
-        PitchAxis(thr);
-        YawAxis(thr);
-        //if (thr.IsRoll())
-        //    AxesList.Add(RollAxis(thr));
-        //if (thr.IsPitch())
-        //    AxesList.Add(PitchAxis(thr));
-        //if(thr.IsYaw())
-        //    AxesList.Add(YawAxis(thr));
-
+        AxesList.Add(RollAxis(thr));
+        AxesList.Add(PitchAxis(thr));
+        AxesList.Add(YawAxis(thr));
+        drawn = 0;
+        Debug.LogError("");
         return AxesList;
     }
 
-    static private void RollAxis(ThrusterTransform thr)
+    static private ThrustAxis RollAxis(ThrusterTransform thr)
     {
         var v = ExcertedForce(thr, PrincipalAxes.Roll);
-        //1st quadrant
-        //if (thr.xPos >= 0 && thr.yPos <= 0)
-        //{
-        //    if (thr.thrustDir.x <= 0 && thr.thrustDir.y <= 0)
-        //        return ThrustAxis.PositiveRoll;
-        //}
-        ////2nd quadrant
-        //if (thr.xPos <= 0 && thr.yPos <= 0)
-        //{
-        //    if (thr.thrustDir.x <= 0 && thr.thrustDir.y >= 0)
-        //        return ThrustAxis.PositiveRoll;
-        //}
-        ////3rd quadrant
-        //if (thr.xPos <= 0 && thr.yPos >= 0)
-        //{
-        //    if (thr.thrustDir.x >= 0 && thr.thrustDir.y >= 0)
-        //        return ThrustAxis.PositiveRoll;
-        //}
-        ////4th quadrant
-        //if (thr.xPos >= 0 && thr.yPos >= 0)
-        //{
-        //    if (thr.thrustDir.x >= 0 && thr.thrustDir.y <= 0)
-        //        return ThrustAxis.PositiveRoll;
-        //}
-        //return ThrustAxis.NegativePitch;
+        if (v > 0)
+        {
+            return ThrustAxis.PositiveRoll;
+        }
+        else if (v < 0)
+        {
+            return ThrustAxis.NegativeRoll;
+        }
+        return ThrustAxis.NoDir;
     }
 
-    static private void PitchAxis(ThrusterTransform thr)
+    static private ThrustAxis PitchAxis(ThrusterTransform thr)
     {
         var v = ExcertedForce(thr, PrincipalAxes.Pitch);
-        //1st quadrant
-        //if (thr.yPos >= 0 && thr.zPos >= 0)
-        //{
-        //    if (thr.thrustDir.y <= 0 && thr.thrustDir.z >= 0)
-        //        return ThrustAxis.PositivePitch;
-        //}
-        ////2nd quadrant
-        //if (thr.yPos <= 0 && thr.zPos >= 0)
-        //{
-        //    if (thr.thrustDir.y <= 0 && thr.thrustDir.z <= 0)
-        //        return ThrustAxis.PositivePitch;
-        //}
-        ////3rd quadrant
-        //if (thr.yPos <= 0 && thr.zPos <= 0)
-        //{
-        //    if (thr.thrustDir.y >= 0 && thr.thrustDir.z <= 0)
-        //        return ThrustAxis.PositivePitch;
-        //}
-        ////4th quadrant
-        //if (thr.yPos >= 0 && thr.zPos <= 0)
-        //{
-        //    if (thr.thrustDir.y >= 0 && thr.thrustDir.z >= 0)
-        //        return ThrustAxis.PositivePitch;
-        //}
-        //return ThrustAxis.NegativePitch;
+        if (v > 0)
+        {
+            return ThrustAxis.PositivePitch;
+        }
+        else if (v < 0)
+        {
+            return ThrustAxis.NegativePitch;
+        }
+        return ThrustAxis.NoDir;
     }
 
-    static private void YawAxis(ThrusterTransform thr)
+    static private ThrustAxis YawAxis(ThrusterTransform thr)
     {
         var v = ExcertedForce(thr, PrincipalAxes.Yaw);
-        //1st quadrant
-        //if (thr.xPos >= 0 && thr.zPos >= 0)
-        //{
-        //    if (thr.thrustDir.x <= 0 && thr.thrustDir.z >= 0)
-        //        return ThrustAxis.PositivePitch;
-        //}
-        ////2nd quadrant
-        //if (thr.xPos <= 0 && thr.zPos >= 0)
-        //{
-        //    if (thr.thrustDir.x <= 0 && thr.thrustDir.z <= 0)
-        //        return ThrustAxis.PositivePitch;
-        //}
-        ////3rd quadrant
-        //if (thr.xPos <= 0 && thr.zPos <= 0)
-        //{
-        //    if (thr.thrustDir.x >= 0 && thr.thrustDir.z <= 0)
-        //        return ThrustAxis.PositivePitch;
-        //}
-        ////4th quadrant
-        //if (thr.xPos >= 0 && thr.zPos <= 0)
-        //{
-        //    if (thr.thrustDir.x >= 0 && thr.thrustDir.z >= 0)
-        //        return ThrustAxis.PositivePitch;
-        //}
-        //return ThrustAxis.NegativePitch;
+        if (v > 0)
+        {
+            return ThrustAxis.PositiveYaw;
+        } else if (v < 0)
+        {
+            return ThrustAxis.NegativeYaw;
+        }
+        return ThrustAxis.NoDir;
+
     }
 
     private static float ExcertedForce(ThrusterTransform thr, PrincipalAxes axis)
@@ -141,18 +92,86 @@ public class ThrusterUtils : MonoBehaviour
         {
             return 0;
         }
-        //? = F * r * sin(?)
+        //? = F * r * sin(theta)
         var F = new Vector2(thrustVector.x, thrustVector.y);
         var r = new Vector2(pos.x, pos.y).magnitude;
         var r_v = new Vector2(pos.x, pos.y);
         var theta = Vector2.Angle(r_v, F);
         var sinOfTheta = Mathf.Sin(theta * Mathf.Deg2Rad);
         var roundedSinOfTheta = Mathf.Round(sinOfTheta * 1000.0f) / 1000.0f;
-        //var v = (F.magnitude * r) * Mathf.Sin(theta);
         var v = (F.magnitude) * roundedSinOfTheta;
-        Debug.DrawLine(thr.worldPos, thr.worldPos - thr.tempWorldThrustDir, Color.red, 200);
+        v = Mathf.Round(v * 1000.0f) / 1000.0f;
+
         Debug.Log(thr.name + " yields " + axisName + " force: " + v + " angle was : " + Vector2.Angle(thrustVector, pos) + " sin of angle: " + Mathf.Round(sinOfTheta * 1000.0f) / 1000.0f);
-        return v;
+        DrawStuff(pos, thrustVector);
+        drawn += 24;
+        //1st quadrant
+        if (pos.x >= 0 && pos.y >= 0)
+        {
+            if (thrustVector.x <= 0 && thrustVector.y >= 0)
+                return v;
+        }
+        //2nd quadrant
+        if (pos.x <= 0 && pos.y >= 0)
+        {
+            if (thrustVector.x <= 0 && thrustVector.y <= 0)
+                return v;
+        }
+        //3rd quadrant
+        if (pos.x <= 0 && pos.y <= 0)
+        {
+            if (thrustVector.x >= 0 && thrustVector.y <= 0)
+                return v;
+        }
+        //4th quadrant
+        if (pos.x >= 0 && pos.y <= 0)
+        {
+            if (thrustVector.x >= 0 && thrustVector.y >= 0)
+                return v;
+        }
+        
+        
+        return -v;
+    }
+
+    private static void DrawStuff(Vector2 pos, Vector2 thrDir)
+    {
+        if (drawn % 72 == 0)
+        {
+            drawings += 24;
+        }
+        Vector3 ul = new Vector3(drawings-10f, 0, 10f - drawn);
+        Vector3 ur = new Vector3(drawings + 10f, 0, 10f - drawn);
+        Vector3 bl = new Vector3(drawings - 10f, 0, -10f - drawn);
+        Vector3 br = new Vector3(drawings + 10f, 0, -10f - drawn);
+
+        Vector3 r = new Vector3(pos.x, 0, pos.y);
+        Vector3 v = new Vector3(thrDir.x, 0, thrDir.y);
+        Vector3 centre = new Vector3(drawings, 1, -drawn);
+
+        Vector3 r2 = new Vector3(centre.x + drawings + pos.x, 0, centre.z + pos.y - drawn);
+        
+        Vector3 v2 = new Vector3(thrDir.x+r.x, 0, thrDir.y);
+        Vector3 v3 = new Vector3(thrDir.x + r.x, 0, thrDir.y + r.y);
+
+
+        Debug.DrawLine(ul, ur, Color.white, 200f);
+        Debug.DrawLine(bl, br, Color.white, 200f);
+        Debug.DrawLine(ul, bl, Color.white, 200f);
+        Debug.DrawLine(ur,br, Color.white, 200f);
+
+        //draw push axis
+        Debug.DrawLine(centre, centre + r, Color.red, 200f);
+        //draw thrust vector
+        Debug.DrawLine(centre, centre + v, Color.blue, 200f);
+
+
+
+        //drawn++;
+
+
+
+
     }
 
     internal class ThrusterTransform
@@ -161,6 +180,7 @@ public class ThrusterUtils : MonoBehaviour
         public float yPos;
         public float zPos;
         public Vector3 cogRelativePos;
+        public Vector3 cogRelativePos2;
         public Vector3 worldPos;
         //Centre of gravity
         public Vector3 cog;
@@ -168,22 +188,30 @@ public class ThrusterUtils : MonoBehaviour
         public string name;
         public Vector3 thrustDir;
         public Vector3 tempWorldThrustDir;
-        public ThrusterTransform(Transform t, Transform cog)
+        public ThrusterTransform(Transform t, Transform cog, Transform outerParent)
         {
             this.xPos = t.localPosition.x;
             this.yPos = t.localPosition.y;
             this.zPos = t.localPosition.z;
-            this.cogRelativePos = t.InverseTransformDirection(t.position)-t.InverseTransformDirection(cog.position);
+            //this.cogRelativePos = t.InverseTransformDirection(t.position)-cog.InverseTransformDirection(cog.position);
+            this.cogRelativePos2 = t.position - cog.position;
+            var v1 = outerParent.transform.InverseTransformPoint(t.position) - outerParent.transform.InverseTransformPoint(cog.position);
+            this.cogRelativePos2 = t.position - cog.position;
             this.worldPos = t.position;
             this.thrustDir = (Quaternion.Euler(t.localEulerAngles) * t.InverseTransformDirection(t.forward));
+            //this.thrustDir = Quaternion.Euler(t.eulerAngles)*t.forward;
             this.name = t.name;
             this.cog = cog.localPosition;
             this.cogW = cog.position;
-            this.tempWorldThrustDir = t.forward;
-            Debug.DrawLine(Vector3.zero, t.position, Color.magenta, 200);
+            this.tempWorldThrustDir = outerParent.InverseTransformDirection(t.forward);
+            
+            Debug.DrawLine(Vector3.zero, cogW + cogRelativePos, Color.blue, 200);
+            Debug.DrawLine(t.position, t.position + this.thrustDir, Color.red, 200);
+            Debug.DrawLine(t.position, t.position + this.tempWorldThrustDir, Color.gray, 200);
             Debug.DrawLine(Vector3.zero, cog.position, Color.cyan, 200);
             Debug.DrawLine(cog.position, t.position, Color.green, 200);
             //Debug.Log(name + "- cog relative pos: " + cogRelativePos + " \n xyzPos: (" + xPos + ", " + yPos +", "+ zPos + ")");
+            this.cogRelativePos = v1;
         }
 
         /// <summary>
@@ -194,15 +222,15 @@ public class ThrusterUtils : MonoBehaviour
         {
             //roll occurs around the y-axis, therefor we omit the y-axis
             Vector2 pos = new Vector2(this.cogRelativePos.x, this.cogRelativePos.z);
-            Vector2 thrustVec = new Vector2(this.thrustDir.x, this.thrustDir.z);
+            Vector2 thrustVec = new Vector2(this.tempWorldThrustDir.x, this.tempWorldThrustDir.z);
             return (pos, thrustVec);
         }
 
         public (Vector2, Vector2) GetPitchAxes()
         {
             //pitch occurs around the x-axis, therefor we omit the x-axis
-            Vector2 pos = new Vector2(this.cogRelativePos.y, this.cogRelativePos.z);
-            Vector2 thrustVec = new Vector2(this.thrustDir.y, this.thrustDir.z);
+            Vector2 pos = new Vector2(this.cogRelativePos.z, this.cogRelativePos.y);
+            Vector2 thrustVec = new Vector2(this.tempWorldThrustDir.z, this.tempWorldThrustDir.y);
             return (pos, thrustVec);
         }
 
@@ -210,7 +238,7 @@ public class ThrusterUtils : MonoBehaviour
         {
             //yaw occurs around the z-axis, therefor we omit the z-axis
             Vector2 pos = new Vector2(this.cogRelativePos.x, this.cogRelativePos.y);
-            Vector2 thrustVec = new Vector2(this.thrustDir.x, this.thrustDir.y);
+            Vector2 thrustVec = new Vector2(this.tempWorldThrustDir.x, this.tempWorldThrustDir.y);
             return (pos, thrustVec);
         }
 
@@ -225,7 +253,6 @@ public class ThrusterUtils : MonoBehaviour
         NegativeYaw,
         PositivePitch,
         NegativePitch,
-        Fwd,
         NoDir
     }
 

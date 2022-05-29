@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RcsThruster : RocketEngine
 {
+
+    //THIS IS HIGHLY TEMPORARY, DELETE AFTER DEBUGGING PLS :)
+    public bool isPositive = true;
     // Start is called before the first frame update
     void Awake()
     {
@@ -20,7 +23,8 @@ public class RcsThruster : RocketEngine
 
     public void Thrust()
     {
-        _rb.AddForce(transform.forward * GetThrust(), ForceMode.Force);
+        //_rb.AddForce(transform.forward * GetThrust(), ForceMode.Force);
+        _rb.AddRelativeForce(transform.forward * GetThrust(), ForceMode.Force);
     }
 
 

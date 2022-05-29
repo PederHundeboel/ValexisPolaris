@@ -52,4 +52,17 @@ public class RocketEngine : MonoBehaviour
         //}
         _rb = GetComponent<Rigidbody>();
     }
+
+    private void FixedUpdate()
+    {
+        if (_on)
+        {
+            _rb.AddForce(transform.forward * GetThrust(), ForceMode.Force);
+        }
+    }
+
+    public float GetThrust()
+    {
+        return _thrustPercent * _maxThrust;
+    }
 }
