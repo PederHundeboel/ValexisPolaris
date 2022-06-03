@@ -24,7 +24,7 @@ public class RcsThruster : RocketEngine
     public void Thrust()
     {
         //_rb.AddForce(transform.forward * GetThrust(), ForceMode.Force);
-        _rb.AddRelativeForce(transform.forward * GetThrust(), ForceMode.Force);
+        _rb.AddForce(transform.forward * GetThrust(), ForceMode.Force);
     }
 
 

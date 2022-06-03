@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrusterUtils : MonoBehaviour
+public class ThrusterUtils1 : MonoBehaviour
 {
     //Debugging shit delete later :)
     static int drawings = 0;
@@ -73,6 +73,7 @@ public class ThrusterUtils : MonoBehaviour
         Vector2 pos;
         Vector2 thrustVector;
         
+
         var axisName = "none";
         if (axis == PrincipalAxes.Roll)
         {
@@ -162,7 +163,7 @@ public class ThrusterUtils : MonoBehaviour
         //draw push axis
         Debug.DrawLine(centre, centre + r, Color.red, 200f);
         //draw thrust vector
-        Debug.DrawLine(centre + r, centre + v + r, Color.blue, 200f);
+        Debug.DrawLine(centre, centre + v, Color.blue, 200f);
 
 
 
@@ -175,32 +176,44 @@ public class ThrusterUtils : MonoBehaviour
 
     internal class ThrusterTransform
     {
+        public float xPos;
+        public float yPos;
+        public float zPos;
         public Vector3 cogRelativePos;
-        public Vector3 offset;
+        public Vector3 cogRelativePos2;
         public Vector3 worldPos;
-        
         //Centre of gravity
+        public Vector3 cog;
+        public Vector3 cogW;
         public string name;
         public Vector3 thrustDir;
         public Vector3 tempWorldThrustDir;
         public ThrusterTransform(Transform t, Transform cog, Transform outerParent)
         {
+            this.xPos = t.localPosition.x;
+            this.yPos = t.localPosition.y;
+            this.zPos = t.localPosition.z;
+            //this.cogRelativePos = t.InverseTransformDirection(t.position)-cog.InverseTransformDirection(cog.position);
+            this.cogRelativePos2 = t.position - cog.position;
             var v1 = outerParent.transform.InverseTransformPoint(t.position) - outerParent.transform.InverseTransformPoint(cog.position);
-            this.cogRelativePos = v1;
-            this.offset = cog.InverseTransformPoint(t.position) - cog.InverseTransformPoint(cog.position);
+            this.cogRelativePos2 = t.position - cog.position;
             this.worldPos = t.position;
+            this.thrustDir = (Quaternion.Euler(t.localEulerAngles) * t.InverseTransformDirection(t.forward));
+            //this.thrustDir = Quaternion.Euler(t.eulerAngles)*t.forward;
             this.name = t.name;
+            this.cog = cog.localPosition;
+            this.cogW = cog.position;
+            this.tempWorldThrustDir = outerParent.InverseTransformDirection(t.forward);
+            //this.tempWorldThrustDir = outerParent.worldToLocalMatrix.MultiplyVector(t.forward); 
 
-            this.thrustDir = outerParent.InverseTransformDirection(t.forward);
-            //this.thrustDir = Quaternion.Euler(t.localEulerAngles) * t.forward;
-            //this.thrustDir = t.localToWorldMatrix.transpose.MultiplyVector(t.forward);
-
-
-            Debug.DrawLine(t.position, t.position + this.thrustDir, Color.blue, 200);
-            //Debug.DrawLine(Vector3.zero, cog.position + offset, Color.blue, 200);
+            Debug.DrawLine(Vector3.zero, cogW + cogRelativePos, Color.blue, 200);
+            Debug.DrawLine(t.position, t.position + this.thrustDir, Color.red, 200);
+            Debug.DrawLine(t.position, t.position + this.tempWorldThrustDir, Color.gray, 200);
             Debug.DrawLine(Vector3.zero, cog.position, Color.cyan, 200);
-            Debug.DrawLine(cog.position, t.position, Color.red, 200);
-            Debug.Log(name + "- cog relative pos: " + offset);
+            Debug.DrawLine(cog.position, t.position, Color.green, 200);
+            
+            this.cogRelativePos = v1;
+            Debug.Log(name + "- cog relative pos: " + cogRelativePos + " \n xyzPos: (" + xPos + ", " + yPos + ", " + zPos + ")");
         }
 
         /// <summary>
@@ -210,24 +223,24 @@ public class ThrusterUtils : MonoBehaviour
         public (Vector2, Vector2) GetRollAxes()
         {
             //roll occurs around the y-axis, therefor we omit the y-axis
-            Vector2 pos = new Vector2(this.offset.x, this.offset.z);
-            Vector2 thrustVec = new Vector2(this.thrustDir.x, this.thrustDir.z);
+            Vector2 pos = new Vector2(this.cogRelativePos.x, this.cogRelativePos.z);
+            Vector2 thrustVec = new Vector2(this.tempWorldThrustDir.x, this.tempWorldThrustDir.z);
             return (pos, thrustVec);
         }
 
         public (Vector2, Vector2) GetPitchAxes()
         {
             //pitch occurs around the x-axis, therefor we omit the x-axis
-            Vector2 pos = new Vector2(this.offset.z, this.offset.y);
-            Vector2 thrustVec = new Vector2(this.thrustDir.z, this.thrustDir.y);
+            Vector2 pos = new Vector2(this.cogRelativePos.z, this.cogRelativePos.y);
+            Vector2 thrustVec = new Vector2(this.tempWorldThrustDir.z, this.tempWorldThrustDir.y);
             return (pos, thrustVec);
         }
 
         public (Vector2, Vector2) GetYawAxes()
         {
             //yaw occurs around the z-axis, therefor we omit the z-axis
-            Vector2 pos = new Vector2(this.offset.x, this.offset.y);
-            Vector2 thrustVec = new Vector2(this.thrustDir.x, this.thrustDir.y);
+            Vector2 pos = new Vector2(this.cogRelativePos.x, this.cogRelativePos.y);
+            Vector2 thrustVec = new Vector2(this.tempWorldThrustDir.x, this.tempWorldThrustDir.y);
             return (pos, thrustVec);
         }
 
